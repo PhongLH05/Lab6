@@ -18,6 +18,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.example.lab6.R;
 import com.example.lab6.adapter.FruitAdapter;
@@ -65,6 +66,10 @@ public class HomeActivity extends AppCompatActivity implements FruitAdapter.Frui
 
 
         userListener();
+
+        httpRequest.callAPI().getListFruit("Bearer "+token).enqueue(getListFruitResponse2);
+
+
 
     }
     private void config() {
@@ -142,6 +147,23 @@ public class HomeActivity extends AppCompatActivity implements FruitAdapter.Frui
         }
     };
 
+    Callback<Response<ArrayList<Fruit>>> getListFruitResponse2 = new Callback<Response<ArrayList<Fruit>>>(){
+
+        @Override
+        public void onResponse(Call<Response<ArrayList<Fruit>>> call, retrofit2.Response<Response<ArrayList<Fruit>>> response) {
+            if (response.isSuccessful()){
+                if (response.body().getStatus() == 200){
+                    ArrayList<Fruit> _ds = response.body().getData();
+                    getData2(_ds);
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(Call<Response<ArrayList<Fruit>>> call, Throwable t) {
+
+        }
+    };
 
 
 
@@ -169,6 +191,13 @@ public class HomeActivity extends AppCompatActivity implements FruitAdapter.Frui
             adapter = new FruitAdapter(this, ds,this );
             binding.rcvFruit.setAdapter(adapter);
         }
+
+    }
+
+    private void getData2(ArrayList<Fruit> _ds){
+        adapter = new FruitAdapter(this, _ds,this );
+        binding.rcvFruit.setLayoutManager(new GridLayoutManager(this,1));
+        binding.rcvFruit.setAdapter(adapter);
 
     }
 

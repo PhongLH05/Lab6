@@ -20,6 +20,7 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder>{
     private Context context;
     private ArrayList<Fruit> list;
     private FruitClick fruitClick;
+    private ArrayList<Fruit> ds = new ArrayList<>();
 
     public FruitAdapter(Context context, ArrayList<Fruit> list, FruitClick fruitClick) {
         this.context = context;
@@ -59,14 +60,17 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder>{
             @Override
             public void onClick(View v) {
                 fruitClick.edit(fruit);
+                notifyDataSetChanged();
             }
         });
         holder.binding.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 fruitClick.delete(fruit);
+                notifyDataSetChanged();
             }
         });
+
 
         Log.d("321321", "onBindViewHolder: "+list.get(position).getImage().get(0));
     }

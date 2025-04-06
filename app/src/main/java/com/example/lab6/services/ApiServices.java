@@ -26,7 +26,7 @@ import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 public interface ApiServices {
-    public static String BASE_URL = "http://192.168.1.99:3000/api/";
+    public static String BASE_URL = "http://10.24.24.187:3000/api/";
 
     @GET("get-list-distributor")
     Call<Response<ArrayList<Distributor>>> getListDistributor();
