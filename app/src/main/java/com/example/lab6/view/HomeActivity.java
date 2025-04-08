@@ -155,6 +155,7 @@ public class HomeActivity extends AppCompatActivity implements FruitAdapter.Frui
                 if (response.body().getStatus() == 200){
                     ArrayList<Fruit> _ds = response.body().getData();
                     getData2(_ds);
+                    adapter.notifyDataSetChanged();
                 }
             }
         }
@@ -233,7 +234,7 @@ public class HomeActivity extends AppCompatActivity implements FruitAdapter.Frui
                     page = 1;
                     ds.clear();
                     FilterFruit();
-
+                    adapter.notifyDataSetChanged();
                     Toast.makeText(HomeActivity.this, response.body().getMessenger(), Toast.LENGTH_SHORT).show();
                 }
             }
