@@ -23,7 +23,7 @@
             android:name=".view.UpdateFruitActivity"
             android:exported="false" />
         <activity
-            android:name=".view.HomeActivity"
+            android:name=".view.RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -38,7 +38,7 @@
             android:name=".view.AddFruitActivity"
             android:exported="false" />
         <activity
-            android:name=".view.RegisterActivity"
+            android:name=".view.HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

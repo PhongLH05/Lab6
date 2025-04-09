@@ -68,7 +68,20 @@ public class HomeActivity extends AppCompatActivity implements FruitAdapter.Frui
         userListener();
 
         httpRequest.callAPI().getListFruit("Bearer "+token).enqueue(getListFruitResponse2);
-
+//        httpRequest.callAPI().getListFruit("Bearer "+token).enqueue(getListFruitResponse);
+//        binding.nestScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+//            @Override
+//            public void onScrollChange(@NonNull NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+//                if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()){
+//                    if (totalPage == page) return;
+//                    if (binding.loadmore.getVisibility() == View.GONE){
+//                        binding.loadmore.setVisibility(View.VISIBLE);
+//                        page++;
+//                        httpRequest.callAPI().getPageFruit("Bearer " + token, page).enqueue(getListFruitResponse);
+//                    }
+//                }
+//            }
+//        });
 
 
     }
@@ -136,6 +149,8 @@ public class HomeActivity extends AppCompatActivity implements FruitAdapter.Frui
                     totalPage = response.body().getData().getTotalPage();
 
                     ArrayList<Fruit> _ds = response.body().getData().getData();
+
+
                     getData(_ds);
                 }
             }
@@ -156,6 +171,12 @@ public class HomeActivity extends AppCompatActivity implements FruitAdapter.Frui
                     ArrayList<Fruit> _ds = response.body().getData();
                     getData2(_ds);
                     adapter.notifyDataSetChanged();
+
+                    binding.rcvFruit.setAdapter(new FruitAdapter(HomeActivity.this, _ds, fruit -> {
+                        Intent intent =new Intent(HomeActivity.this, FruitDetailActivity.class);
+                        intent.putExtra("fruit", fruit);
+                        startActivity(intent);
+                    }));
                 }
             }
         }
@@ -185,13 +206,13 @@ public class HomeActivity extends AppCompatActivity implements FruitAdapter.Frui
                 }
             },1000);
             return;
-        } else {
-            ds.clear();
-
-            ds.addAll(_ds);
-            adapter = new FruitAdapter(this, ds,this );
-            binding.rcvFruit.setAdapter(adapter);
         }
+        ds.clear();
+
+        ds.addAll(_ds);
+        adapter = new FruitAdapter(this, ds,this );
+        binding.rcvFruit.setLayoutManager(new GridLayoutManager(this,2));
+        binding.rcvFruit.setAdapter(adapter);
 
     }
 

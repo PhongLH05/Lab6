@@ -26,7 +26,7 @@ import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 public interface ApiServices {
-    public static String BASE_URL = "http://192.168.68.107:3000/api/";
+    public static String BASE_URL = "http://192.168.68.106:3000/api/";
 
     @GET("get-list-distributor")
     Call<Response<ArrayList<Distributor>>> getListDistributor();
@@ -70,6 +70,9 @@ public interface ApiServices {
 
     @GET("get-page-fruit")
     Call<Response<Page<ArrayList<Fruit>>>> getPageFruit(@QueryMap Map<String, String> stringMap);
+
+//    @GET("get-page-fruit")
+//    Call<Response<Page<ArrayList<Fruit>>>> getPageFruit(@Header("Authorization")String token,@Query("page") int page);
 
 
     @Multipart
